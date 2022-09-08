@@ -27,12 +27,12 @@
 namespace Google\Cloud\Retail\V2alpha\Gapic;
 
 use Google\ApiCore\ApiException;
+
 use Google\ApiCore\CredentialsWrapper;
 use Google\ApiCore\GapicClientTrait;
 use Google\ApiCore\LongRunning\OperationsClient;
 use Google\ApiCore\OperationResponse;
 use Google\ApiCore\PathTemplate;
-use Google\ApiCore\RequestParamsHeaderDescriptor;
 use Google\ApiCore\RetrySettings;
 use Google\ApiCore\Transport\TransportInterface;
 use Google\ApiCore\ValidationException;
@@ -349,10 +349,8 @@ class UserEventServiceGapicClient
     public function collectUserEvent($parent, $userEvent, array $optionalArgs = [])
     {
         $request = new CollectUserEventRequest();
-        $requestParamHeaders = [];
         $request->setParent($parent);
         $request->setUserEvent($userEvent);
-        $requestParamHeaders['parent'] = $parent;
         if (isset($optionalArgs['uri'])) {
             $request->setUri($optionalArgs['uri']);
         }
@@ -361,9 +359,7 @@ class UserEventServiceGapicClient
             $request->setEts($optionalArgs['ets']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('CollectUserEvent', HttpBody::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('CollectUserEvent', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -435,17 +431,13 @@ class UserEventServiceGapicClient
     public function importUserEvents($parent, $inputConfig, array $optionalArgs = [])
     {
         $request = new ImportUserEventsRequest();
-        $requestParamHeaders = [];
         $request->setParent($parent);
         $request->setInputConfig($inputConfig);
-        $requestParamHeaders['parent'] = $parent;
         if (isset($optionalArgs['errorsConfig'])) {
             $request->setErrorsConfig($optionalArgs['errorsConfig']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startOperationsCall('ImportUserEvents', $optionalArgs, $request, $this->getOperationsClient())->wait();
+        return $this->startApiCall('ImportUserEvents', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -540,17 +532,13 @@ class UserEventServiceGapicClient
     public function purgeUserEvents($parent, $filter, array $optionalArgs = [])
     {
         $request = new PurgeUserEventsRequest();
-        $requestParamHeaders = [];
         $request->setParent($parent);
         $request->setFilter($filter);
-        $requestParamHeaders['parent'] = $parent;
         if (isset($optionalArgs['force'])) {
             $request->setForce($optionalArgs['force']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startOperationsCall('PurgeUserEvents', $optionalArgs, $request, $this->getOperationsClient())->wait();
+        return $this->startApiCall('PurgeUserEvents', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -624,16 +612,12 @@ class UserEventServiceGapicClient
     public function rejoinUserEvents($parent, array $optionalArgs = [])
     {
         $request = new RejoinUserEventsRequest();
-        $requestParamHeaders = [];
         $request->setParent($parent);
-        $requestParamHeaders['parent'] = $parent;
         if (isset($optionalArgs['userEventRejoinScope'])) {
             $request->setUserEventRejoinScope($optionalArgs['userEventRejoinScope']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startOperationsCall('RejoinUserEvents', $optionalArgs, $request, $this->getOperationsClient())->wait();
+        return $this->startApiCall('RejoinUserEvents', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -672,12 +656,8 @@ class UserEventServiceGapicClient
     public function writeUserEvent($parent, $userEvent, array $optionalArgs = [])
     {
         $request = new WriteUserEventRequest();
-        $requestParamHeaders = [];
         $request->setParent($parent);
         $request->setUserEvent($userEvent);
-        $requestParamHeaders['parent'] = $parent;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('WriteUserEvent', UserEvent::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('WriteUserEvent', $request, $optionalArgs)->wait();
     }
 }

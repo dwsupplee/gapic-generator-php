@@ -27,6 +27,7 @@
 namespace Google\Cloud\Retail\V2alpha\Gapic;
 
 use Google\ApiCore\ApiException;
+
 use Google\ApiCore\CredentialsWrapper;
 use Google\ApiCore\GapicClientTrait;
 use Google\ApiCore\RequestParamsHeaderDescriptor;
@@ -35,7 +36,6 @@ use Google\ApiCore\Transport\TransportInterface;
 use Google\ApiCore\ValidationException;
 use Google\Auth\FetchAuthTokenInterface;
 use Google\Cloud\Retail\V2alpha\PredictRequest;
-use Google\Cloud\Retail\V2alpha\PredictResponse;
 use Google\Cloud\Retail\V2alpha\UserEvent;
 
 /**
@@ -288,10 +288,8 @@ class PredictionServiceGapicClient
     public function predict($placement, $userEvent, array $optionalArgs = [])
     {
         $request = new PredictRequest();
-        $requestParamHeaders = [];
         $request->setPlacement($placement);
         $request->setUserEvent($userEvent);
-        $requestParamHeaders['placement'] = $placement;
         if (isset($optionalArgs['pageSize'])) {
             $request->setPageSize($optionalArgs['pageSize']);
         }
@@ -316,8 +314,6 @@ class PredictionServiceGapicClient
             $request->setLabels($optionalArgs['labels']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('Predict', PredictResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('Predict', $request, $optionalArgs)->wait();
     }
 }

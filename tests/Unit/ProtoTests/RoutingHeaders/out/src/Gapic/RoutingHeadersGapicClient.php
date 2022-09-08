@@ -27,7 +27,6 @@ namespace Testing\RoutingHeaders\Gapic;
 use Google\ApiCore\ApiException;
 use Google\ApiCore\CredentialsWrapper;
 use Google\ApiCore\GapicClientTrait;
-use Google\ApiCore\RequestParamsHeaderDescriptor;
 use Google\ApiCore\RetrySettings;
 use Google\ApiCore\Transport\TransportInterface;
 use Google\ApiCore\ValidationException;
@@ -35,7 +34,6 @@ use Google\Auth\FetchAuthTokenInterface;
 use Testing\RoutingHeaders\NestedRequest;
 use Testing\RoutingHeaders\NestedRequest\Inner1;
 use Testing\RoutingHeaders\OrderRequest;
-use Testing\RoutingHeaders\Response;
 use Testing\RoutingHeaders\SimpleRequest;
 
 /**
@@ -180,15 +178,11 @@ class RoutingHeadersGapicClient
     public function deleteMethod(array $optionalArgs = [])
     {
         $request = new SimpleRequest();
-        $requestParamHeaders = [];
         if (isset($optionalArgs['name'])) {
             $request->setName($optionalArgs['name']);
-            $requestParamHeaders['name'] = $optionalArgs['name'];
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('DeleteMethod', Response::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('DeleteMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -220,15 +214,11 @@ class RoutingHeadersGapicClient
     public function getMethod(array $optionalArgs = [])
     {
         $request = new SimpleRequest();
-        $requestParamHeaders = [];
         if (isset($optionalArgs['name'])) {
             $request->setName($optionalArgs['name']);
-            $requestParamHeaders['name'] = $optionalArgs['name'];
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('GetMethod', Response::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('GetMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -264,7 +254,7 @@ class RoutingHeadersGapicClient
             $request->setName($optionalArgs['name']);
         }
 
-        return $this->startCall('GetNoPlaceholdersMethod', Response::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('GetNoPlaceholdersMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -296,15 +286,11 @@ class RoutingHeadersGapicClient
     public function getNoTemplateMethod(array $optionalArgs = [])
     {
         $request = new SimpleRequest();
-        $requestParamHeaders = [];
         if (isset($optionalArgs['name'])) {
             $request->setName($optionalArgs['name']);
-            $requestParamHeaders['name'] = $optionalArgs['name'];
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('GetNoTemplateMethod', Response::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('GetNoTemplateMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -340,17 +326,13 @@ class RoutingHeadersGapicClient
     public function nestedMethod($nest1, $anotherName, array $optionalArgs = [])
     {
         $request = new NestedRequest();
-        $requestParamHeaders = [];
         $request->setNest1($nest1);
         $request->setAnotherName($anotherName);
-        $requestParamHeaders['nest1.nest2.name'] = $nest1->getNest2()->getName();
         if (isset($optionalArgs['name'])) {
             $request->setName($optionalArgs['name']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('NestedMethod', Response::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('NestedMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -386,19 +368,13 @@ class RoutingHeadersGapicClient
     public function nestedMultiMethod($nest1, $anotherName, array $optionalArgs = [])
     {
         $request = new NestedRequest();
-        $requestParamHeaders = [];
         $request->setNest1($nest1);
         $request->setAnotherName($anotherName);
-        $requestParamHeaders['nest1.nest2.name'] = $nest1->getNest2()->getName();
-        $requestParamHeaders['another_name'] = $anotherName;
         if (isset($optionalArgs['name'])) {
             $request->setName($optionalArgs['name']);
-            $requestParamHeaders['name'] = $optionalArgs['name'];
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('NestedMultiMethod', Response::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('NestedMultiMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -442,35 +418,24 @@ class RoutingHeadersGapicClient
     public function orderingMethod($a, $b, $d, $c, $e, array $optionalArgs = [])
     {
         $request = new OrderRequest();
-        $requestParamHeaders = [];
         $request->setA($a);
         $request->setB($b);
         $request->setD($d);
         $request->setC($c);
         $request->setE($e);
-        $requestParamHeaders['a'] = $a;
-        $requestParamHeaders['b'] = $b;
-        $requestParamHeaders['d'] = $d;
-        $requestParamHeaders['c'] = $c;
-        $requestParamHeaders['e'] = $e;
         if (isset($optionalArgs['aId'])) {
             $request->setAId($optionalArgs['aId']);
-            $requestParamHeaders['a_id'] = $optionalArgs['aId'];
         }
 
         if (isset($optionalArgs['bId'])) {
             $request->setBId($optionalArgs['bId']);
-            $requestParamHeaders['b_id'] = $optionalArgs['bId'];
         }
 
         if (isset($optionalArgs['aa'])) {
             $request->setAa($optionalArgs['aa']);
-            $requestParamHeaders['aa'] = $optionalArgs['aa'];
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('OrderingMethod', Response::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('OrderingMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -502,15 +467,11 @@ class RoutingHeadersGapicClient
     public function patchMethod(array $optionalArgs = [])
     {
         $request = new SimpleRequest();
-        $requestParamHeaders = [];
         if (isset($optionalArgs['name'])) {
             $request->setName($optionalArgs['name']);
-            $requestParamHeaders['name'] = $optionalArgs['name'];
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('PatchMethod', Response::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('PatchMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -542,15 +503,11 @@ class RoutingHeadersGapicClient
     public function postMethod(array $optionalArgs = [])
     {
         $request = new SimpleRequest();
-        $requestParamHeaders = [];
         if (isset($optionalArgs['name'])) {
             $request->setName($optionalArgs['name']);
-            $requestParamHeaders['name'] = $optionalArgs['name'];
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('PostMethod', Response::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('PostMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -582,15 +539,11 @@ class RoutingHeadersGapicClient
     public function putMethod(array $optionalArgs = [])
     {
         $request = new SimpleRequest();
-        $requestParamHeaders = [];
         if (isset($optionalArgs['name'])) {
             $request->setName($optionalArgs['name']);
-            $requestParamHeaders['name'] = $optionalArgs['name'];
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('PutMethod', Response::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('PutMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -632,7 +585,7 @@ class RoutingHeadersGapicClient
             $request->setName($optionalArgs['name']);
         }
 
-        return $this->startCall('RoutingRuleWithOutParameters', Response::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('RoutingRuleWithOutParameters', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -668,9 +621,9 @@ class RoutingHeadersGapicClient
     public function routingRuleWithParameters($nest1, $anotherName, array $optionalArgs = [])
     {
         $request = new NestedRequest();
-        $requestParamHeaders = [];
         $request->setNest1($nest1);
         $request->setAnotherName($anotherName);
+<<<<<<< HEAD
         $fooNameMatches = [];
         if (preg_match('/^(?<foo_name>projects\/[^\/]+)\/bars\/[^\/]+(?:\/.*)?$/', $anotherName, $fooNameMatches)) {
             $requestParamHeaders['foo_name'] = $fooNameMatches['foo_name'];
@@ -696,10 +649,12 @@ class RoutingHeadersGapicClient
             if (preg_match('/^(?<name>projects\/[^\/]+)\/foos$/', $optionalArgs['name'], $nameMatches)) {
                 $requestParamHeaders['name'] = $nameMatches['name'];
             }
+=======
+        if (isset($optionalArgs['name'])) {
+            $request->setName($optionalArgs['name']);
+>>>>>>> b72f1c9 (feat: switch to startApiCall with call descriptors (#510))
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('RoutingRuleWithParameters', Response::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('RoutingRuleWithParameters', $request, $optionalArgs)->wait();
     }
 }

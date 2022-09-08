@@ -30,7 +30,6 @@ use Google\ApiCore\ApiException;
 use Google\ApiCore\CredentialsWrapper;
 use Google\ApiCore\GapicClientTrait;
 use Google\ApiCore\PathTemplate;
-use Google\ApiCore\RequestParamsHeaderDescriptor;
 use Google\ApiCore\RetrySettings;
 use Google\ApiCore\Transport\TransportInterface;
 use Google\ApiCore\ValidationException;
@@ -40,10 +39,8 @@ use Google\Cloud\Talent\V4beta1\CreateCompanyRequest;
 use Google\Cloud\Talent\V4beta1\DeleteCompanyRequest;
 use Google\Cloud\Talent\V4beta1\GetCompanyRequest;
 use Google\Cloud\Talent\V4beta1\ListCompaniesRequest;
-use Google\Cloud\Talent\V4beta1\ListCompaniesResponse;
 use Google\Cloud\Talent\V4beta1\UpdateCompanyRequest;
 use Google\Protobuf\FieldMask;
-use Google\Protobuf\GPBEmpty;
 
 /**
  * Service Description: A service that handles company management, including CRUD and enumeration.
@@ -427,13 +424,9 @@ class CompanyServiceGapicClient
     public function createCompany($parent, $company, array $optionalArgs = [])
     {
         $request = new CreateCompanyRequest();
-        $requestParamHeaders = [];
         $request->setParent($parent);
         $request->setCompany($company);
-        $requestParamHeaders['parent'] = $parent;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('CreateCompany', Company::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('CreateCompany', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -475,12 +468,8 @@ class CompanyServiceGapicClient
     public function deleteCompany($name, array $optionalArgs = [])
     {
         $request = new DeleteCompanyRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('DeleteCompany', GPBEmpty::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('DeleteCompany', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -523,12 +512,8 @@ class CompanyServiceGapicClient
     public function getCompany($name, array $optionalArgs = [])
     {
         $request = new GetCompanyRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('GetCompany', Company::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('GetCompany', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -598,9 +583,7 @@ class CompanyServiceGapicClient
     public function listCompanies($parent, array $optionalArgs = [])
     {
         $request = new ListCompaniesRequest();
-        $requestParamHeaders = [];
         $request->setParent($parent);
-        $requestParamHeaders['parent'] = $parent;
         if (isset($optionalArgs['pageToken'])) {
             $request->setPageToken($optionalArgs['pageToken']);
         }
@@ -613,9 +596,7 @@ class CompanyServiceGapicClient
             $request->setRequireOpenJobs($optionalArgs['requireOpenJobs']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->getPagedListResponse('ListCompanies', $optionalArgs, ListCompaniesResponse::class, $request);
+        return $this->startApiCall('ListCompanies', $request, $optionalArgs);
     }
 
     /**
@@ -659,15 +640,11 @@ class CompanyServiceGapicClient
     public function updateCompany($company, array $optionalArgs = [])
     {
         $request = new UpdateCompanyRequest();
-        $requestParamHeaders = [];
         $request->setCompany($company);
-        $requestParamHeaders['company.name'] = $company->getName();
         if (isset($optionalArgs['updateMask'])) {
             $request->setUpdateMask($optionalArgs['updateMask']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('UpdateCompany', Company::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('UpdateCompany', $request, $optionalArgs)->wait();
     }
 }

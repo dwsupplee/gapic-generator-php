@@ -25,9 +25,12 @@
 namespace Testing\BasicDiregapic\Gapic;
 
 use Google\ApiCore\ApiException;
+
 use Google\ApiCore\CredentialsWrapper;
+
 use Google\ApiCore\GapicClientTrait;
 use Google\ApiCore\LongRunning\OperationsClient;
+
 use Google\ApiCore\OperationResponse;
 use Google\ApiCore\PathTemplate;
 use Google\ApiCore\RequestParamsHeaderDescriptor;
@@ -43,7 +46,6 @@ use Google\Protobuf\DoubleValue;
 use Google\Protobuf\Duration;
 use Google\Protobuf\FieldMask;
 use Google\Protobuf\FloatValue;
-use Google\Protobuf\GPBEmpty;
 use Google\Protobuf\Int32Value;
 use Google\Protobuf\Int64Value;
 use Google\Protobuf\ListValue;
@@ -53,13 +55,17 @@ use Google\Protobuf\Timestamp;
 use Google\Protobuf\UInt32Value;
 use Google\Protobuf\UInt64Value;
 use Google\Protobuf\Value;
+<<<<<<< HEAD
 use Testing\BasicDiregapic\AddCommentsRequest;
 use Testing\BasicDiregapic\AddTagRequest;
 use Testing\BasicDiregapic\AddTagResponse;
+=======
+
+use Testing\BasicDiregapic\AddCommentsRequest;
+use Testing\BasicDiregapic\AddTagRequest;
+
+>>>>>>> b72f1c9 (feat: switch to startApiCall with call descriptors (#510))
 use Testing\BasicDiregapic\ArchiveBooksRequest;
-use Testing\BasicDiregapic\ArchiveBooksResponse;
-use Testing\BasicDiregapic\BookFromAnywhereResponse;
-use Testing\BasicDiregapic\BookFromArchiveResponse;
 use Testing\BasicDiregapic\BookResponse;
 use Testing\BasicDiregapic\Comment;
 use Testing\BasicDiregapic\CreateBookRequest;
@@ -68,27 +74,25 @@ use Testing\BasicDiregapic\CreateShelfRequest;
 use Testing\BasicDiregapic\DeleteBookRequest;
 use Testing\BasicDiregapic\DeleteShelfRequest;
 use Testing\BasicDiregapic\FindRelatedBooksRequest;
-use Testing\BasicDiregapic\FindRelatedBooksResponse;
 use Testing\BasicDiregapic\GetBookFromAbsolutelyAnywhereRequest;
 use Testing\BasicDiregapic\GetBookFromAnywhereRequest;
 use Testing\BasicDiregapic\GetBookFromArchiveRequest;
 use Testing\BasicDiregapic\GetBookRequest;
+
 use Testing\BasicDiregapic\GetShelfRequest;
 use Testing\BasicDiregapic\InventoryResponse;
 use Testing\BasicDiregapic\ListAggregatedShelvesRequest;
-use Testing\BasicDiregapic\ListAggregatedShelvesResponse;
 use Testing\BasicDiregapic\ListBooksRequest;
+<<<<<<< HEAD
 use Testing\BasicDiregapic\ListBooksResponse;
+=======
+>>>>>>> b72f1c9 (feat: switch to startApiCall with call descriptors (#510))
 use Testing\BasicDiregapic\ListShelvesRequest;
-use Testing\BasicDiregapic\ListShelvesResponse;
 use Testing\BasicDiregapic\ListStringsRequest;
-use Testing\BasicDiregapic\ListStringsResponse;
 use Testing\BasicDiregapic\MergeShelvesRequest;
 use Testing\BasicDiregapic\MoveBookRequest;
 use Testing\BasicDiregapic\MoveBooksRequest;
-use Testing\BasicDiregapic\MoveBooksResponse;
 use Testing\BasicDiregapic\PublishSeriesRequest;
-use Testing\BasicDiregapic\PublishSeriesResponse;
 use Testing\BasicDiregapic\SeriesUuidResponse;
 use Testing\BasicDiregapic\ShelfResponse;
 use Testing\BasicDiregapic\SomeMessage;
@@ -878,13 +882,9 @@ class LibraryServiceGapicClient
     public function addComments($name, $comments, array $optionalArgs = [])
     {
         $request = new AddCommentsRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
         $request->setComments($comments);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('AddComments', GPBEmpty::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('AddComments', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -921,13 +921,9 @@ class LibraryServiceGapicClient
     public function addTag($resource, $tag, array $optionalArgs = [])
     {
         $request = new AddTagRequest();
-        $requestParamHeaders = [];
         $request->setResource($resource);
         $request->setTag($tag);
-        $requestParamHeaders['resource'] = $resource;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('AddTag', AddTagResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('AddTag', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -960,19 +956,15 @@ class LibraryServiceGapicClient
     public function archiveBooks(array $optionalArgs = [])
     {
         $request = new ArchiveBooksRequest();
-        $requestParamHeaders = [];
         if (isset($optionalArgs['source'])) {
             $request->setSource($optionalArgs['source']);
-            $requestParamHeaders['source'] = $optionalArgs['source'];
         }
 
         if (isset($optionalArgs['archive'])) {
             $request->setArchive($optionalArgs['archive']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('ArchiveBooks', ArchiveBooksResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('ArchiveBooks', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1008,13 +1000,9 @@ class LibraryServiceGapicClient
     public function createBook($name, $book, array $optionalArgs = [])
     {
         $request = new CreateBookRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
         $request->setBook($book);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('CreateBook', BookResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('CreateBook', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1055,19 +1043,15 @@ class LibraryServiceGapicClient
     public function createInventory($parent, $asset, $parentAsset, $assets, array $optionalArgs = [])
     {
         $request = new CreateInventoryRequest();
-        $requestParamHeaders = [];
         $request->setParent($parent);
         $request->setAsset($asset);
         $request->setParentAsset($parentAsset);
         $request->setAssets($assets);
-        $requestParamHeaders['parent'] = $parent;
         if (isset($optionalArgs['inventory'])) {
             $request->setInventory($optionalArgs['inventory']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('CreateInventory', InventoryResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('CreateInventory', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1103,7 +1087,7 @@ class LibraryServiceGapicClient
     {
         $request = new CreateShelfRequest();
         $request->setShelf($shelf);
-        return $this->startCall('CreateShelf', ShelfResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('CreateShelf', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1135,12 +1119,8 @@ class LibraryServiceGapicClient
     public function deleteBook($name, array $optionalArgs = [])
     {
         $request = new DeleteBookRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('DeleteBook', GPBEmpty::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('DeleteBook', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1172,12 +1152,8 @@ class LibraryServiceGapicClient
     public function deleteShelf($name, array $optionalArgs = [])
     {
         $request = new DeleteShelfRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('DeleteShelf', GPBEmpty::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('DeleteShelf', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1247,7 +1223,7 @@ class LibraryServiceGapicClient
             $request->setPageToken($optionalArgs['pageToken']);
         }
 
-        return $this->getPagedListResponse('FindRelatedBooks', $optionalArgs, FindRelatedBooksResponse::class, $request);
+        return $this->startApiCall('FindRelatedBooks', $request, $optionalArgs);
     }
 
     /**
@@ -1306,12 +1282,8 @@ class LibraryServiceGapicClient
     public function getBigBook($name, array $optionalArgs = [])
     {
         $request = new GetBookRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startOperationsCall('GetBigBook', $optionalArgs, $request, $this->getOperationsClient())->wait();
+        return $this->startApiCall('GetBigBook', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1368,12 +1340,8 @@ class LibraryServiceGapicClient
     public function getBigNothing($name, array $optionalArgs = [])
     {
         $request = new GetBookRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startOperationsCall('GetBigNothing', $optionalArgs, $request, $this->getOperationsClient())->wait();
+        return $this->startApiCall('GetBigNothing', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1407,12 +1375,8 @@ class LibraryServiceGapicClient
     public function getBook($name, array $optionalArgs = [])
     {
         $request = new GetBookRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('GetBook', BookResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('GetBook', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1449,17 +1413,12 @@ class LibraryServiceGapicClient
     public function getBookFromAbsolutelyAnywhere($name, array $optionalArgs = [])
     {
         $request = new GetBookFromAbsolutelyAnywhereRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
-        $requestParamHeaders['name'] = $name;
         if (isset($optionalArgs['altBookName'])) {
             $request->setAltBookName($optionalArgs['altBookName']);
-            $requestParamHeaders['alt_book_name'] = $optionalArgs['altBookName'];
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('GetBookFromAbsolutelyAnywhere', BookFromAnywhereResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('GetBookFromAbsolutelyAnywhere', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1500,15 +1459,11 @@ class LibraryServiceGapicClient
     public function getBookFromAnywhere($name, $altBookName, $place, $folder, array $optionalArgs = [])
     {
         $request = new GetBookFromAnywhereRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
         $request->setAltBookName($altBookName);
         $request->setPlace($place);
         $request->setFolder($folder);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('GetBookFromAnywhere', BookFromAnywhereResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('GetBookFromAnywhere', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1544,13 +1499,9 @@ class LibraryServiceGapicClient
     public function getBookFromArchive($name, $parent, array $optionalArgs = [])
     {
         $request = new GetBookFromArchiveRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
         $request->setParent($parent);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('GetBookFromArchive', BookFromArchiveResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('GetBookFromArchive', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1589,10 +1540,8 @@ class LibraryServiceGapicClient
     public function getShelf($name, $options, array $optionalArgs = [])
     {
         $request = new GetShelfRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
         $request->setOptions($options);
-        $requestParamHeaders['name'] = $name;
         if (isset($optionalArgs['message'])) {
             $request->setMessage($optionalArgs['message']);
         }
@@ -1601,9 +1550,7 @@ class LibraryServiceGapicClient
             $request->setStringBuilder($optionalArgs['stringBuilder']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('GetShelf', ShelfResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('GetShelf', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1662,7 +1609,7 @@ class LibraryServiceGapicClient
             $request->setPageToken($optionalArgs['pageToken']);
         }
 
-        return $this->getPagedListResponse('ListAggregatedShelves', $optionalArgs, ListAggregatedShelvesResponse::class, $request);
+        return $this->startApiCall('ListAggregatedShelves', $request, $optionalArgs);
     }
 
     /**
@@ -1719,9 +1666,7 @@ class LibraryServiceGapicClient
     public function listBooks($name, array $optionalArgs = [])
     {
         $request = new ListBooksRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
-        $requestParamHeaders['name'] = $name;
         if (isset($optionalArgs['pageSize'])) {
             $request->setPageSize($optionalArgs['pageSize']);
         }
@@ -1734,9 +1679,7 @@ class LibraryServiceGapicClient
             $request->setFilter($optionalArgs['filter']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->getPagedListResponse('ListBooks', $optionalArgs, ListBooksResponse::class, $request);
+        return $this->startApiCall('ListBooks', $request, $optionalArgs);
     }
 
     /**
@@ -1777,7 +1720,7 @@ class LibraryServiceGapicClient
             $request->setPageToken($optionalArgs['pageToken']);
         }
 
-        return $this->startCall('ListShelves', ListShelvesResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('ListShelves', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1843,7 +1786,7 @@ class LibraryServiceGapicClient
             $request->setPageToken($optionalArgs['pageToken']);
         }
 
-        return $this->getPagedListResponse('ListStrings', $optionalArgs, ListStringsResponse::class, $request);
+        return $this->startApiCall('ListStrings', $request, $optionalArgs);
     }
 
     /**
@@ -1901,19 +1844,15 @@ class LibraryServiceGapicClient
     public function longRunningArchiveBooks(array $optionalArgs = [])
     {
         $request = new ArchiveBooksRequest();
-        $requestParamHeaders = [];
         if (isset($optionalArgs['source'])) {
             $request->setSource($optionalArgs['source']);
-            $requestParamHeaders['source'] = $optionalArgs['source'];
         }
 
         if (isset($optionalArgs['archive'])) {
             $request->setArchive($optionalArgs['archive']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startOperationsCall('LongRunningArchiveBooks', $optionalArgs, $request, $this->getOperationsClient())->wait();
+        return $this->startApiCall('LongRunningArchiveBooks', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1951,13 +1890,9 @@ class LibraryServiceGapicClient
     public function mergeShelves($name, $otherShelfName, array $optionalArgs = [])
     {
         $request = new MergeShelvesRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
         $request->setOtherShelfName($otherShelfName);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('MergeShelves', ShelfResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('MergeShelves', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -1993,13 +1928,9 @@ class LibraryServiceGapicClient
     public function moveBook($name, $otherShelfName, array $optionalArgs = [])
     {
         $request = new MoveBookRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
         $request->setOtherShelfName($otherShelfName);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('MoveBook', BookResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('MoveBook', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -2034,10 +1965,8 @@ class LibraryServiceGapicClient
     public function moveBooks(array $optionalArgs = [])
     {
         $request = new MoveBooksRequest();
-        $requestParamHeaders = [];
         if (isset($optionalArgs['source'])) {
             $request->setSource($optionalArgs['source']);
-            $requestParamHeaders['source'] = $optionalArgs['source'];
         }
 
         if (isset($optionalArgs['destination'])) {
@@ -2052,9 +1981,7 @@ class LibraryServiceGapicClient
             $request->setProject($optionalArgs['project']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('MoveBooks', MoveBooksResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('MoveBooks', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -2095,7 +2022,7 @@ class LibraryServiceGapicClient
             $request->setPageToken($optionalArgs['pageToken']);
         }
 
-        return $this->startCall('PrivateListShelves', BookResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('PrivateListShelves', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -2143,12 +2070,14 @@ class LibraryServiceGapicClient
     public function publishSeries($shelf, $books, $seriesUuid, $genres, array $optionalArgs = [])
     {
         $request = new PublishSeriesRequest();
-        $requestParamHeaders = [];
         $request->setShelf($shelf);
         $request->setBooks($books);
         $request->setSeriesUuid($seriesUuid);
+<<<<<<< HEAD
         $request->setGenres($genres);
         $requestParamHeaders['shelf.name'] = $shelf->getName();
+=======
+>>>>>>> b72f1c9 (feat: switch to startApiCall with call descriptors (#510))
         if (isset($optionalArgs['edition'])) {
             $request->setEdition($optionalArgs['edition']);
         }
@@ -2161,9 +2090,7 @@ class LibraryServiceGapicClient
             $request->setPublisher($optionalArgs['publisher']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('PublishSeries', PublishSeriesResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('PublishSeries', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -2349,7 +2276,7 @@ class LibraryServiceGapicClient
             $request->setMapBoolKey($optionalArgs['mapBoolKey']);
         }
 
-        return $this->startCall('SaveBook', GPBEmpty::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('SaveBook', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -2389,10 +2316,8 @@ class LibraryServiceGapicClient
     public function updateBook($name, $book, array $optionalArgs = [])
     {
         $request = new UpdateBookRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
         $request->setBook($book);
-        $requestParamHeaders['name'] = $name;
         if (isset($optionalArgs['optionalFoo'])) {
             $request->setOptionalFoo($optionalArgs['optionalFoo']);
         }
@@ -2401,9 +2326,7 @@ class LibraryServiceGapicClient
             $request->setUpdateMask($optionalArgs['updateMask']);
         }
 
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('UpdateBook', BookResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('UpdateBook', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -2439,13 +2362,9 @@ class LibraryServiceGapicClient
     public function updateBookIndex($name, $indexName, $indexMap, array $optionalArgs = [])
     {
         $request = new UpdateBookIndexRequest();
-        $requestParamHeaders = [];
         $request->setName($name);
         $request->setIndexName($indexName);
         $request->setIndexMap($indexMap);
-        $requestParamHeaders['name'] = $name;
-        $requestParams = new RequestParamsHeaderDescriptor($requestParamHeaders);
-        $optionalArgs['headers'] = isset($optionalArgs['headers']) ? array_merge($requestParams->getHeader(), $optionalArgs['headers']) : $requestParams->getHeader();
-        return $this->startCall('UpdateBookIndex', GPBEmpty::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('UpdateBookIndex', $request, $optionalArgs)->wait();
     }
 }

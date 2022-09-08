@@ -35,7 +35,6 @@ use Google\Auth\FetchAuthTokenInterface;
 use Testing\ResourceNames\FileLevelChildTypeRefRequest;
 use Testing\ResourceNames\FileLevelTypeRefRequest;
 use Testing\ResourceNames\MultiPatternRequest;
-use Testing\ResourceNames\PlaceholderResponse;
 use Testing\ResourceNames\SinglePatternRequest;
 use Testing\ResourceNames\WildcardChildReferenceRequest;
 use Testing\ResourceNames\WildcardMultiPatternRequest;
@@ -713,7 +712,7 @@ class ResourceNamesGapicClient
             $request->setFolderMultiWildcardName($optionalArgs['folderMultiWildcardName']);
         }
 
-        return $this->startCall('FileLevelChildTypeRefMethod', PlaceholderResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('FileLevelChildTypeRefMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -749,7 +748,7 @@ class ResourceNamesGapicClient
             $request->setFileName($optionalArgs['fileName']);
         }
 
-        return $this->startCall('FileLevelTypeRefMethod', PlaceholderResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('FileLevelTypeRefMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -785,7 +784,7 @@ class ResourceNamesGapicClient
             $request->setName($optionalArgs['name']);
         }
 
-        return $this->startCall('MultiPatternMethod', PlaceholderResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('MultiPatternMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -822,7 +821,7 @@ class ResourceNamesGapicClient
             $request->setRealName($optionalArgs['realName']);
         }
 
-        return $this->startCall('SinglePatternMethod', PlaceholderResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('SinglePatternMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -858,7 +857,7 @@ class ResourceNamesGapicClient
             $request->setParent($optionalArgs['parent']);
         }
 
-        return $this->startCall('WildcardChildReferenceMethod', PlaceholderResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('WildcardChildReferenceMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -894,7 +893,7 @@ class ResourceNamesGapicClient
             $request->setName($optionalArgs['name']);
         }
 
-        return $this->startCall('WildcardMethod', PlaceholderResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('WildcardMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -930,7 +929,7 @@ class ResourceNamesGapicClient
             $request->setName($optionalArgs['name']);
         }
 
-        return $this->startCall('WildcardMultiMethod', PlaceholderResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('WildcardMultiMethod', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -966,6 +965,6 @@ class ResourceNamesGapicClient
             $request->setName($optionalArgs['name']);
         }
 
-        return $this->startCall('WildcardReferenceMethod', PlaceholderResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('WildcardReferenceMethod', $request, $optionalArgs)->wait();
     }
 }

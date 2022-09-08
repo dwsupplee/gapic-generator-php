@@ -28,6 +28,7 @@ use Google\ApiCore\ApiException;
 use Google\ApiCore\Call;
 use Google\ApiCore\CredentialsWrapper;
 use Google\ApiCore\GapicClientTrait;
+
 use Google\ApiCore\LongRunning\OperationsClient;
 use Google\ApiCore\OperationResponse;
 use Google\ApiCore\RetrySettings;
@@ -39,9 +40,7 @@ use Google\Cloud\Speech\V1\LongRunningRecognizeResponse;
 use Google\Cloud\Speech\V1\RecognitionAudio;
 use Google\Cloud\Speech\V1\RecognitionConfig;
 use Google\Cloud\Speech\V1\RecognizeRequest;
-use Google\Cloud\Speech\V1\RecognizeResponse;
 use Google\Cloud\Speech\V1\StreamingRecognizeRequest;
-use Google\Cloud\Speech\V1\StreamingRecognizeResponse;
 use Google\Cloud\Speech\V1\TranscriptOutputConfig;
 use Google\LongRunning\Operation;
 
@@ -291,7 +290,7 @@ class SpeechGapicClient
             $request->setOutputConfig($optionalArgs['outputConfig']);
         }
 
-        return $this->startOperationsCall('LongRunningRecognize', $optionalArgs, $request, $this->getOperationsClient())->wait();
+        return $this->startApiCall('LongRunningRecognize', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -331,7 +330,7 @@ class SpeechGapicClient
         $request = new RecognizeRequest();
         $request->setConfig($config);
         $request->setAudio($audio);
-        return $this->startCall('Recognize', RecognizeResponse::class, $optionalArgs, $request)->wait();
+        return $this->startApiCall('Recognize', $request, $optionalArgs)->wait();
     }
 
     /**
@@ -391,6 +390,6 @@ class SpeechGapicClient
      */
     public function streamingRecognize(array $optionalArgs = [])
     {
-        return $this->startCall('StreamingRecognize', StreamingRecognizeResponse::class, $optionalArgs, null, Call::BIDI_STREAMING_CALL);
+        return $this->startApiCall('StreamingRecognize', null, $optionalArgs);
     }
 }
