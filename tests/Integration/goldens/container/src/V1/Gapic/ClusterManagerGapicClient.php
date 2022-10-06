@@ -42,12 +42,8 @@ use Google\Cloud\Container\V1\DeleteClusterRequest;
 use Google\Cloud\Container\V1\DeleteNodePoolRequest;
 use Google\Cloud\Container\V1\GetClusterRequest;
 use Google\Cloud\Container\V1\GetJSONWebKeysRequest;
-<<<<<<< HEAD
 use Google\Cloud\Container\V1\GetJSONWebKeysResponse;
-=======
->>>>>>> b72f1c9 (feat: switch to startApiCall with call descriptors (#510))
 use Google\Cloud\Container\V1\GetNodePoolRequest;
-
 use Google\Cloud\Container\V1\GetOperationRequest;
 use Google\Cloud\Container\V1\GetServerConfigRequest;
 use Google\Cloud\Container\V1\ListClustersRequest;
@@ -60,11 +56,8 @@ use Google\Cloud\Container\V1\NetworkPolicy;
 use Google\Cloud\Container\V1\NodeManagement;
 use Google\Cloud\Container\V1\NodePool;
 use Google\Cloud\Container\V1\NodePoolAutoscaling;
-<<<<<<< HEAD
 use Google\Cloud\Container\V1\NodePool\UpgradeSettings;
 use Google\Cloud\Container\V1\Operation;
-=======
->>>>>>> b72f1c9 (feat: switch to startApiCall with call descriptors (#510))
 use Google\Cloud\Container\V1\RollbackNodePoolUpgradeRequest;
 use Google\Cloud\Container\V1\SetAddonsConfigRequest;
 use Google\Cloud\Container\V1\SetLabelsRequest;
