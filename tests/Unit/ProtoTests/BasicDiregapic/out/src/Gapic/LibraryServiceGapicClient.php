@@ -26,10 +26,8 @@ namespace Testing\BasicDiregapic\Gapic;
 
 use Google\ApiCore\ApiException;
 use Google\ApiCore\CredentialsWrapper;
-
 use Google\ApiCore\GapicClientTrait;
 use Google\ApiCore\LongRunning\OperationsClient;
-
 use Google\ApiCore\OperationResponse;
 use Google\ApiCore\PathTemplate;
 use Google\ApiCore\RequestParamsHeaderDescriptor;
@@ -2151,7 +2149,6 @@ class LibraryServiceGapicClient
         $request->setSeriesUuid($seriesUuid);
         $request->setGenres($genres);
         $requestParamHeaders['shelf.name'] = $shelf->getName();
-
         if (isset($optionalArgs['edition'])) {
             $request->setEdition($optionalArgs['edition']);
         }
